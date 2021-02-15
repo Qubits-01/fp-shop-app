@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'package:fp_shop_app/screens/product_detail_screen.dart';
+
 class ProductItem extends StatelessWidget {
   const ProductItem(
     this.id,
@@ -37,9 +39,17 @@ class ProductItem extends StatelessWidget {
             onPressed: () {},
           ),
         ),
-        child: Image.network(
-          imageUrl,
-          fit: BoxFit.cover,
+        child: GestureDetector(
+          onTap: () {
+            Navigator.of(context).pushNamed(
+              ProductDetailScreen.routeName,
+              arguments: id,
+            );
+          },
+          child: Image.network(
+            imageUrl,
+            fit: BoxFit.cover,
+          ),
         ),
       ),
     );
