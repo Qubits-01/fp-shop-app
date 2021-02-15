@@ -1,34 +1,47 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import 'package:fp_shop_app/screens/product_detail_screen.dart';
+import 'package:fp_shop_app/providers/product_provider.dart';
 
 class ProductItem extends StatelessWidget {
-  const ProductItem(
-    this.id,
-    this.title,
-    this.imageUrl,
-  );
+  // const ProductItem(
+  //   this.id,
+  //   this.title,
+  //   this.imageUrl,
+  // );
 
-  final String id;
-  final String title;
-  final String imageUrl;
+  // final String id;
+  // final String title;
+  // final String imageUrl;
 
   @override
   Widget build(BuildContext context) {
+    final ProductProvider product = Provider.of<ProductProvider>(
+      context,
+      listen: false,
+    );
+
+    print('product rebuilds');
+
     return ClipRRect(
       borderRadius: BorderRadius.circular(10),
       child: GridTile(
         footer: GridTileBar(
           backgroundColor: Colors.black87,
-          leading: IconButton(
-            icon: const Icon(
-              Icons.favorite,
+          leading: Consumer<ProductProvider>(
+            builder: (ctx, product, child) => IconButton(
+              icon: Icon(
+                product.isFavorite ? Icons.favorite : Icons.favorite_border,
+              ),
+              color: Theme.of(context).accentColor,
+              onPressed: () {
+                product.toggleFavoriteStatus();
+              },
             ),
-            color: Theme.of(context).accentColor,
-            onPressed: () {},
           ),
           title: Text(
-            title,
+            product.title,
             textAlign: TextAlign.center,
           ),
           trailing: IconButton(
@@ -43,11 +56,11 @@ class ProductItem extends StatelessWidget {
           onTap: () {
             Navigator.of(context).pushNamed(
               ProductDetailScreen.routeName,
-              arguments: id,
+              arguments: product.id,
             );
           },
           child: Image.network(
-            imageUrl,
+            product.imageUrl,
             fit: BoxFit.cover,
           ),
         ),
