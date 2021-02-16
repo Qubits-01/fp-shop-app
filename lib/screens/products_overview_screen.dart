@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 
 import 'package:fp_shop_app/providers/cart_provider.dart';
 import 'package:fp_shop_app/widgets/products_grid.dart';
+import 'package:fp_shop_app/screens/cart_screen.dart';
 import 'package:fp_shop_app/widgets/badge.dart';
 
 enum FilterOptions {
@@ -61,11 +62,15 @@ class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
               value: cart.itemCount.toString(),
               child: child,
             ),
-            child: const IconButton(
-              icon: Icon(
+            child: IconButton(
+              icon: const Icon(
                 Icons.shopping_cart,
               ),
-              onPressed: null,
+              onPressed: () {
+                Navigator.of(context).pushNamed(
+                  CartScreen.routeName,
+                );
+              },
             ),
           ),
         ],

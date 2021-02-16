@@ -5,6 +5,7 @@ import 'package:fp_shop_app/providers/cart_provider.dart';
 import 'package:fp_shop_app/providers/products_provider.dart';
 import 'package:fp_shop_app/screens/products_overview_screen.dart';
 import 'package:fp_shop_app/screens/product_detail_screen.dart';
+import 'package:fp_shop_app/screens/cart_screen.dart';
 
 void main() => runApp(MyApp());
 
@@ -30,6 +31,7 @@ class MyApp extends StatelessWidget {
         home: ProductsOverviewScreen(),
         routes: {
           ProductDetailScreen.routeName: (ctx) => ProductDetailScreen(),
+          CartScreen.routeName: (ctx) => CartScreen(),
         },
       ),
     );
