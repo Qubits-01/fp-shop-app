@@ -3,8 +3,11 @@ import 'package:provider/provider.dart';
 
 import 'package:fp_shop_app/providers/orders_provider.dart' show OrdersProvider;
 import 'package:fp_shop_app/widgets/order_item.dart';
+import 'package:fp_shop_app/widgets/app_drawer.dart';
 
-class OdersScreen extends StatelessWidget {
+class OrdersScreen extends StatelessWidget {
+  static const routeName = '/orders';
+
   @override
   Widget build(BuildContext context) {
     final OrdersProvider orderData = Provider.of<OrdersProvider>(context);
@@ -13,6 +16,7 @@ class OdersScreen extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Your Oders'),
       ),
+      drawer: AppDrawer(),
       body: ListView.builder(
         itemCount: orderData.orders.length,
         itemBuilder: (ctx, i) => OrderItem(
