@@ -22,7 +22,7 @@ class ProductItem extends StatelessWidget {
       listen: false,
     );
 
-    print('product rebuilds');
+    // print('product rebuilds');
 
     return ClipRRect(
       borderRadius: BorderRadius.circular(10),

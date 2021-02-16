@@ -6,11 +6,17 @@ import 'package:fp_shop_app/providers/products_provider.dart';
 import 'package:fp_shop_app/widgets/product_item.dart';
 
 class ProductsGrid extends StatelessWidget {
+  // ignore: avoid_positional_boolean_parameters
+  const ProductsGrid(this.showFavs);
+
+  final bool showFavs;
+
   @override
   Widget build(BuildContext context) {
     final ProductsProvider productsData =
         Provider.of<ProductsProvider>(context);
-    final List<ProductProvider> products = productsData.items;
+    final List<ProductProvider> products =
+        showFavs ? productsData.favoriteItems : productsData.items;
 
     return GridView.builder(
       padding: const EdgeInsets.all(10.0),

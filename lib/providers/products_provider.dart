@@ -39,8 +39,19 @@ class ProductsProvider with ChangeNotifier {
     ),
   ];
 
+  // // ignore: prefer_final_fields
+  // bool _showFavoritesOnly = false;
+
   List<ProductProvider> get items {
+    // if (_showFavoritesOnly) {
+    //   return _items.where((prodItem) => prodItem.isFavorite).toList();
+    // }
+
     return [..._items];
+  }
+
+  List<ProductProvider> get favoriteItems {
+    return _items.where((prodItem) => prodItem.isFavorite).toList();
   }
 
   ProductProvider findById(String id) {
@@ -48,6 +59,18 @@ class ProductsProvider with ChangeNotifier {
       (prod) => prod.id == id,
     );
   }
+
+  // void showFavoritesOnly() {
+  //   _showFavoritesOnly = true;
+
+  //   notifyListeners();
+  // }
+
+  // void showAll() {
+  //   _showFavoritesOnly = false;
+
+  //   notifyListeners();
+  // }
 
   void addProduct() {
     // _items.add(value);
