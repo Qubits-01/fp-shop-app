@@ -16,3 +16,6 @@ analyzer:
 
     # # Causes false positives (https://github.com/dart-lang/sdk/issues/41571
     # top_level_function_literal_block: ignore
+
+    sized_box_for_whitespace: ignore
+    directives_ordering: ignore
