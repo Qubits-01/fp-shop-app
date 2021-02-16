@@ -3,10 +3,15 @@ import 'package:flutter/foundation.dart';
 import 'package:fp_shop_app/models/cart_item.dart';
 
 class CartProvider with ChangeNotifier {
-  Map<String, CartItem> _items;
+  // ignore: prefer_final_fields
+  Map<String, CartItem> _items = {};
 
   Map<String, CartItem> get items {
     return {..._items};
+  }
+
+  int get itemCount {
+    return _items.length;
   }
 
   void addItem(
@@ -36,5 +41,7 @@ class CartProvider with ChangeNotifier {
         ),
       );
     }
+
+    notifyListeners();
   }
 }
