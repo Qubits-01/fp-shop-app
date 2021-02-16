@@ -1,6 +1,6 @@
 # fp_shop_app
 
-A new Flutter project.
+Shop App on "A Complete Guide to the Flutter SDK & Flutter Framework for building native iOS and Android apps."
 
 ## Getting Started
 
