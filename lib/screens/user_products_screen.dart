@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 
 import 'package:fp_shop_app/providers/products_provider.dart';
 import 'package:fp_shop_app/widgets/app_drawer.dart';
+import 'package:fp_shop_app/screens/edit_product_screen.dart';
 import 'package:fp_shop_app/widgets/user_product_item.dart';
 
 class UserProductsScreen extends StatelessWidget {
@@ -19,7 +20,9 @@ class UserProductsScreen extends StatelessWidget {
         actions: <Widget>[
           IconButton(
             icon: const Icon(Icons.add),
-            onPressed: () {},
+            onPressed: () {
+              Navigator.of(context).pushNamed(EditProductScreen.routeName);
+            },
           ),
         ],
       ),
