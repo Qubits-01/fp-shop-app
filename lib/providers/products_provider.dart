@@ -76,7 +76,7 @@ class ProductsProvider with ChangeNotifier {
   // }
 
   Future<void> addProduct(ProductProvider product) {
-    const url = 'https://p3-inc-default-rtdb.firebaseio.com/products.json';
+    const url = 'https://p3-inc-default-rtdb.firebaseio.com/products';
     return http
         .post(
       url,
@@ -101,6 +101,9 @@ class ProductsProvider with ChangeNotifier {
       // _items.insert(0, newProduct);  // add at the start of the list.
 
       notifyListeners();
+    }).catchError((error) {
+      // print(error);
+      throw error;
     });
   }
 
