@@ -75,9 +75,9 @@ class ProductsProvider with ChangeNotifier {
   //   notifyListeners();
   // }
 
-  void addProduct(ProductProvider product) {
+  Future<void> addProduct(ProductProvider product) {
     const url = 'https://p3-inc-default-rtdb.firebaseio.com/products.json';
-    http
+    return http
         .post(
       url,
       body: json.encode({
