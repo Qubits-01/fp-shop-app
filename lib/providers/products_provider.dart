@@ -1,4 +1,7 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 
 import 'package:fp_shop_app/providers/product_provider.dart';
 
@@ -73,18 +76,32 @@ class ProductsProvider with ChangeNotifier {
   // }
 
   void addProduct(ProductProvider product) {
-    final newProduct = ProductProvider(
-      title: product.title,
-      description: product.description,
-      price: product.price,
-      imageUrl: product.imageUrl,
-      id: DateTime.now().toString(),
-    );
+    const url = 'https://p3-inc-default-rtdb.firebaseio.com/products.json';
+    http
+        .post(
+      url,
+      body: json.encode({
+        'title': product.title,
+        'description': product.description,
+        'imageUrl': product.imageUrl,
+        'price': product.price,
+        'isFavorite': product.isFavorite,
+      }),
+    )
+        .then((response) {
+      final newProduct = ProductProvider(
+        title: product.title,
+        description: product.description,
+        price: product.price,
+        imageUrl: product.imageUrl,
+        id: json.decode(response.body)['name'] as String,
+      );
 
-    _items.add(newProduct);
-    // _items.insert(0, newProduct);  // add at the start of the list.
+      _items.add(newProduct);
+      // _items.insert(0, newProduct);  // add at the start of the list.
 
-    notifyListeners();
+      notifyListeners();
+    });
   }
 
   void updateProduct(String id, ProductProvider newProduct) {
