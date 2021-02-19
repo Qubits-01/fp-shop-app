@@ -161,7 +161,19 @@ class ProductsProvider with ChangeNotifier {
   }
 
   void deleteProduct(String id) {
-    _items.removeWhere((prod) => prod.id == id);
+    final String url =
+        'https://p3-inc-default-rtdb.firebaseio.com/products/$id.json';
+
+    final int existingProductIndex = _items.indexWhere((prod) => prod.id == id);
+    ProductProvider existingProduct = _items[existingProductIndex];
+
+    // Optimistic Updating
+    _items.removeAt(existingProductIndex);
+    http.delete(url).then((_) {
+      existingProduct = null;
+    }).catchError((_) {
+      _items.insert(existingProductIndex, existingProduct);
+    });
 
     notifyListeners();
   }
