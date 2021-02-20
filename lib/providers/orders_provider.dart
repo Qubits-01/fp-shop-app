@@ -14,6 +14,39 @@ class OrdersProvider with ChangeNotifier {
     return [..._orders];
   }
 
+  Future<void> fetchAndSetOrders() async {
+    const url = 'https://p3-inc-default-rtdb.firebaseio.com/orders.json';
+    final List<OrderItem> loadedOrders = [];
+
+    final response = await http.get(url);
+    final extractedData = json.decode(response.body) as Map<String, dynamic>;
+
+    if (extractedData == null) {
+      return;
+    }
+
+    extractedData.forEach((orderId, orderData) {
+      loadedOrders.add(
+        OrderItem(
+          id: orderId,
+          amount: orderData['amount'] as double,
+          dateTime: DateTime.parse(orderData['dateTime'] as String),
+          products: (orderData['products'] as List<dynamic>)
+              .map((item) => CartItem(
+                    id: item['id'] as String,
+                    price: item['price'] as double,
+                    quantity: item['quantity'] as int,
+                    title: item['title'] as String,
+                  ))
+              .toList(),
+        ),
+      );
+    });
+
+    _orders = loadedOrders.reversed.toList();
+    notifyListeners();
+  }
+
   Future<void> addOrder(List<CartItem> cartProducts, double total) async {
     const url = 'https://p3-inc-default-rtdb.firebaseio.com/orders.json';
     final timestamp = DateTime.now();
